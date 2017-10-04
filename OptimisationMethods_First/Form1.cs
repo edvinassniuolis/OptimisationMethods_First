@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OptimisationMethods_First.Algorithms;
+using System;
 using System.Windows.Forms;
 
 namespace OptimisationMethods_First
@@ -8,11 +9,10 @@ namespace OptimisationMethods_First
         private double[] interval;
 
         private static readonly double epsilon = 0.0001;
+        private static readonly double tEpsilon = 0.001;
 
-        private double L;
         private double left = 0, right = 10;
-        private double xCenter, x1, x2, fx1, fx2, fxcenter;
-        private double answer;
+        private double tLeft = 0, tRight = 5;
 
         public mainForm()
         {
@@ -21,62 +21,17 @@ namespace OptimisationMethods_First
 
         private void intervalDivButton_Click(object sender, EventArgs e)
         {
-            L = right - left;
-            xCenter = GetMin(left, right);
-
-            DefineIntervalPoints();
-            Checkx1Validations();
+            var interval = new IntervalDivWorker(epsilon, left, right);
+            // var tinterval = new IntervalDivWorker(tEpsilon, tLeft, tRight);
         }
-
         private void goldenDivButton_Click(object sender, EventArgs e)
         {
-
+            var golden = new GoldenSectionWorker(epsilon, left, right);
         }
-
         private void newtonButton_Click(object sender, EventArgs e)
         {
 
         }
 
-        private double GetAimFunction(double x)
-        {
-            return (Math.Pow(x, 2)) / 8;
-        }
-
-        private double GetMin(double a, double b)
-        {
-            return (b - a) / 2;
-        }
-
-        private void CountTotalAnswer()
-        {
-            if ((right - left) < epsilon)
-            {
-                answer = right - left;
-            }
-            else
-            {
-                DefineIntervalPoints();
-            }
-        }
-
-        private void DefineIntervalPoints()
-        {
-            x1 = left + L / 4;
-            x2 = right - L / 4;
-
-            fx1 = GetAimFunction(x1);
-            fx2 = GetAimFunction(x2);
-        }
-
-        private void Checkx1Validations()
-        {
-            if (fx1 < GetAimFunction(xCenter))
-            {
-                right = xCenter;
-                xCenter = x1;
-                CountTotalAnswer();
-            }
-        }
     }
 }
