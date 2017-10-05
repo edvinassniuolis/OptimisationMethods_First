@@ -13,6 +13,7 @@ namespace OptimisationMethods_First
 
         private double left = 0, right = 10;
         private double tLeft = 0, tRight = 5;
+        private double x0 = 5;
 
         public mainForm()
         {
@@ -30,7 +31,7 @@ namespace OptimisationMethods_First
         }
         private void newtonButton_Click(object sender, EventArgs e)
         {
-
+            var newton = new NewtonWorker(epsilon, x0);
         }
 
     }
