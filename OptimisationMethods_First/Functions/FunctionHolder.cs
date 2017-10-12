@@ -18,5 +18,10 @@ namespace OptimisationMethods_First.Functions
         {
             return (4 * Math.Pow(x, 3)) / 9;
         }
+
+        public static double GetFunctionDoubleDerivative(double x)
+        {
+            return (4 * Math.Pow(x, 2)) / 3;
+        }
     }
 }

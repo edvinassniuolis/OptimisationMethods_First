@@ -11,7 +11,7 @@ namespace OptimisationMethods_First.Algorithms
         private double _x0, _xiPlusOne, _xi;
         private readonly double _epsilon;
         private int _i;
-        private readonly List<double> _xList, _fxList;
+        private readonly List<double> _xList, _xiPlusOneList;
 
         public NewtonWorker(double epsilon, double x0)
         {
@@ -19,7 +19,7 @@ namespace OptimisationMethods_First.Algorithms
             _epsilon = epsilon;
             _xi = _x0;
             _xList = new List<double>();
-            _fxList = new List<double>();
+            _xiPlusOneList = new List<double>();
 
             AssignFirstValue();
         }
@@ -32,10 +32,10 @@ namespace OptimisationMethods_First.Algorithms
 
         private void AssignFunction()
         {
-            _xiPlusOne = _xi - (FunctionHolder.GetAimFunctionResult(_xi) / FunctionHolder.GetFunctionDerivative(_xi));
+            _xiPlusOne = _xi - (FunctionHolder.GetFunctionDerivative(_xi) / FunctionHolder.GetFunctionDoubleDerivative(_xi));
 
             _xList.Add(_xi);
-            _fxList.Add(_xiPlusOne);
+            _xiPlusOneList.Add(_xiPlusOne);
 
             CheckAnswerValidation();
         }
@@ -48,14 +48,14 @@ namespace OptimisationMethods_First.Algorithms
                 {
                     Debug.WriteLine($"i = {i}\n" +
                                     $"x = {String.Format("{0:F16}", _xList.ElementAt(i))}\n" +
-                                    $"F(x) = {String.Format("{0:F16}", _fxList.ElementAt(i))}\n");
+                                    $"F(x) = {String.Format("{0:F16}", _xiPlusOneList.ElementAt(i))}\n" +
+                                    $"____________________________________________________________\n");
                 }
-                var temp = _xiPlusOne - (FunctionHolder.GetAimFunctionResult(_xiPlusOne) /
-                                         FunctionHolder.GetFunctionDerivative(_xiPlusOne));
-                Debug.WriteLine($"ATS:\n" +
-                                $"i = {++_i}\n" +
-                                $"Xi+1 = {temp}\n" +
-                                $"f(Xi+1) = {FunctionHolder.GetAimFunctionResult(temp)}\n");
+
+                Debug.WriteLine($"ATS:" +
+                                $"x = {String.Format("{0:F16}", _xiPlusOneList.ElementAt(_xList.Count - 1))}\n" +
+                                $"F(x) = {String.Format("{0:F16}", FunctionHolder.GetAimFunctionResult(_xiPlusOneList.ElementAt(_xiPlusOneList.Count - 1)))}\n" +
+                                $"____________________________________________________________\n");
             }
             else
             {

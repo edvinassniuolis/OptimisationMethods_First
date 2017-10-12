@@ -81,7 +81,8 @@ namespace OptimisationMethods_First.Algorithms
                 {
                     Debug.WriteLine($"i = {i}\n" +
                                     $"x = {String.Format("{0:F16}", _xList.ElementAt(i))}\n" +
-                                    $"F(x) = {String.Format("{0:F16}", _fxList.ElementAt(i))}\n");
+                                    $"F(x) = {String.Format("{0:F16}", _fxList.ElementAt(i))}\n" +
+                                    $"____________________________________________________________");
                 }
 
                 Debug.WriteLine($"x = {_xList.ElementAt(_xList.Count - 1)}\n" +
